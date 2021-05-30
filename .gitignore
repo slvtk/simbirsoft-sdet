@@ -1,0 +1,8 @@
+*.iml
+*.iws
+
+.idea/**
+.allure/**
+
+/target/*
+!/target/allure-report/

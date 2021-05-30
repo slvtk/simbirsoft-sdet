@@ -1,0 +1,135 @@
+{
+  "uid" : "2b18ebc22bc3cabf",
+  "name" : "testLogInAndCountingMatchingEmailsThenSendingEmail()",
+  "fullName" : "tests.EmailSendTest.testLogInAndCountingMatchingEmailsThenSendingEmail",
+  "historyId" : "3583436884a29fe1099265213b4a2751",
+  "time" : {
+    "start" : 1622345355236,
+    "stop" : 1622345397495,
+    "duration" : 42259
+  },
+  "description" : "Тест аутентификации, вычисление количества писем, включающих в subject слова: 'Simbirsoft Тестовое задание',а также отправка письма с результатами",
+  "descriptionHtml" : "<p>Тест аутентификации, вычисление количества писем, включающих в subject слова: 'Simbirsoft Тестовое задание',а также отправка письма с результатами</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ ],
+  "testStage" : {
+    "description" : "Тест аутентификации, вычисление количества писем, включающих в subject слова: 'Simbirsoft Тестовое задание',а также отправка письма с результатами",
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "Переход на начальную страницу",
+      "time" : {
+        "start" : 1622345366111,
+        "stop" : 1622345366115,
+        "duration" : 4
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "stepsCount" : 0,
+      "hasContent" : false
+    }, {
+      "name" : "Аутентификация",
+      "time" : {
+        "start" : 1622345370690,
+        "stop" : 1622345370690,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "stepsCount" : 0,
+      "hasContent" : false
+    }, {
+      "name" : "Поиск сообщений по критерию",
+      "time" : {
+        "start" : 1622345373675,
+        "stop" : 1622345373675,
+        "duration" : 0
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "stepsCount" : 0,
+      "hasContent" : false
+    }, {
+      "name" : "Формирование и отправка количества подходящих писем",
+      "time" : {
+        "start" : 1622345389995,
+        "stop" : 1622345389996,
+        "duration" : 1
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false,
+      "stepsCount" : 0,
+      "hasContent" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 4,
+    "hasContent" : true
+  },
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "epic",
+    "value" : "Тестовое задание Simbirsoft"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-6QQA7UE"
+  }, {
+    "name" : "thread",
+    "value" : "22052@DESKTOP-6QQA7UE.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit-platform"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "package",
+    "value" : "tests.EmailSendTest"
+  }, {
+    "name" : "testClass",
+    "value" : "tests.EmailSendTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "testLogInAndCountingMatchingEmailsThenSendingEmail"
+  }, {
+    "name" : "suite",
+    "value" : "tests.EmailSendTest"
+  }, {
+    "name" : "severity",
+    "value" : "trivial"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "trivial",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "2b18ebc22bc3cabf.json",
+  "parameterValues" : [ ]
+}

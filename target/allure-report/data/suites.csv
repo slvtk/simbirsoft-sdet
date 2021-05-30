@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Sun May 30 06:29:15 MSK 2021","Sun May 30 06:29:57 MSK 2021","42259","","tests.EmailSendTest","","tests.EmailSendTest","testLogInAndCountingMatchingEmailsThenSendingEmail","testLogInAndCountingMatchingEmailsThenSendingEmail()","Тест аутентификации, вычисление количества писем, включающих в subject слова: 'Simbirsoft Тестовое задание',а также отправка письма с результатами"
