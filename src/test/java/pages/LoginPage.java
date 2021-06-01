@@ -1,30 +1,37 @@
 package pages;
 
-import org.openqa.selenium.By;
+import config.Configurations;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 
-    private final WebDriver driver;
-    private final By emailLocator = By.name("identifier");
-    private final By passwordLocator = By.name("password");
+    private WebDriver webDriver;
+    @FindBy(name = "identifier")
+    private WebElement emailField;
+    @FindBy(name = "password")
+    private WebElement passwordField;
 
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
+    public LoginPage(WebDriver webDriver) {
+        PageFactory.initElements(webDriver, this);
+    }
+
+    public LoginPage open(){
+        webDriver.get(Configurations.LOGIN_PAGE_URL);
+        return this;
     }
 
     public LoginPage fillUsernameField(String username) {
-        driver.findElement(emailLocator).clear();
-        driver.findElement(emailLocator).sendKeys(username);
-        driver.findElement(emailLocator).sendKeys(Keys.ENTER);
+        emailField.sendKeys(username + Keys.ENTER);
         return this;
     }
 
     public LoginPage fillPasswordField(String password) {
-        driver.findElement(passwordLocator).clear();
-        driver.findElement(passwordLocator).sendKeys(password);
-        driver.findElement(passwordLocator).sendKeys(Keys.ENTER);
+        passwordField.sendKeys(password + Keys.ENTER);
         return this;
     }
+
 }

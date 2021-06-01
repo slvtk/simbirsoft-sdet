@@ -1,35 +1,36 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class InboxPage {
 
-    private final WebDriver driver;
-    private final WebDriverWait wait;
-    private final By searchLocator = By.className("gb_ef");
-    private final By searchSubmitLocator = By.cssSelector("button.gb_nf.gb_of > svg");
-    private final By matchingMessagesLocator = By.className("ts");
+    private final WebDriverWait webDriverWait;
+    @FindBy(className = "gb_ef")
+    private WebElement searchAreaField;
+    @FindBy(css = "button.gb_nf.gb_of > svg")
+    private WebElement searchAreaSubmit;
+    @FindBy(xpath = "//div[@class='D E G-atb PY']/div[2]/div[2]/div/span/div[1]/span/span[2]")
+    private WebElement matchingMessagesCounter;
 
-    public InboxPage(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
-        this.wait = wait;
+    public InboxPage(WebDriver webDriver,
+                     WebDriverWait webDriverWait) {
+        this.webDriverWait = webDriverWait;
+        PageFactory.initElements(webDriver, this);
     }
 
     public InboxPage fillSearchField(String searchQuery) {
-        driver.findElement(searchLocator).sendKeys(searchQuery);
-        wait.until(ExpectedConditions.elementToBeClickable(searchSubmitLocator)).click();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(searchAreaField)).click();
+        searchAreaField.sendKeys(searchQuery);
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(searchAreaSubmit)).click();
         return this;
     }
 
     public String getMatchingMessages() {
-        return driver.findElements(matchingMessagesLocator).get(5).getText();
+        return matchingMessagesCounter.getText();
     }
 }

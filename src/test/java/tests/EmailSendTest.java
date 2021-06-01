@@ -1,9 +1,10 @@
 package tests;
 
+import config.Configurations;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 
 import static io.qameta.allure.Allure.step;
 
@@ -13,13 +14,21 @@ public class EmailSendTest extends TestBase {
     @Severity(SeverityLevel.TRIVIAL)
     @Description("Тест аутентификации, вычисление количества писем, включающих в subject слова: 'Simbirsoft Тестовое задание',а также отправка письма с результатами")
     public void testLogInAndCountingMatchingEmailsThenSendingEmail() {
-        step("Переход на начальную страницу");
-        app.getNavigationHelper().navigateToIndexPage();
+
         step("Аутентификация");
-        app.getLoginHelper().login();
-        step("Поиск сообщений по критерию");
-        app.getInboxHelper().findMatchingMessages();
+        appManager.getLoginPage()
+                .open()
+                .fillUsernameField(Configurations.EMAIL)
+                .fillPasswordField(Configurations.PASSWORD);
+
+        step("Подсчёт сообщений по критерию");
+        String matchingMessages = appManager.getInboxPage()
+                .fillSearchField(Configurations.SEARCH_QUERY)
+                .getMatchingMessages();
+
         step("Формирование и отправка количества подходящих писем");
-        app.getMailSenderHelper().sendEmail(app.getInboxHelper().getMatchingMessages());
+        appManager.getMailSenderPage()
+                .newEmailForm()
+                .sendEmail(Configurations.EMAIL, Configurations.SUBJECT, matchingMessages);
     }
 }

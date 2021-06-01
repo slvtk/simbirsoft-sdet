@@ -1,10 +1,6 @@
 package manager;
 
 import config.Configurations;
-import helpers.InboxHelper;
-import helpers.LoginHelper;
-import helpers.MailSenderHelper;
-import helpers.NavigationHelper;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,74 +11,85 @@ import pages.InboxPage;
 import pages.LoginPage;
 import pages.MailSenderPage;
 
-import java.net.MalformedURLException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-    private final NavigationHelper navigationHelper;
-    private final LoginHelper loginHelper;
-    private final InboxHelper inboxHelper;
-    private final MailSenderHelper mailSenderHelper;
-    private static final ThreadLocal<ApplicationManager> app = new ThreadLocal<>();
+    private WebDriver webDriver;
+    private WebDriverWait webDriverWait;
+    private static final ThreadLocal<ApplicationManager> appManager = new ThreadLocal<>();
+    private InboxPage inboxPage;
+    private LoginPage loginPage;
+    private MailSenderPage mailSenderPage;
 
     private ApplicationManager() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName(Configurations.BROWSER);
-        capabilities.setPlatform(Platform.WINDOWS);
+        //Try with InputStreamReader for property file (with encoding)
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream("src/main/resources/config.properties"), StandardCharsets.UTF_8)) {
+            Properties properties = new Properties();
+            //Loading properties from file
+            properties.load(reader);
+            //Initialize Configurations
+            Configurations.init(properties);
+            //Driver setUp
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setBrowserName(Configurations.BROWSER);
+            capabilities.setPlatform(Platform.WINDOWS);
 
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.merge(capabilities);
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.merge(capabilities);
 
-        try {
-            driver = new RemoteWebDriver(new URL(Configurations.HUB_URL), chromeOptions);
-            driver.manage().timeouts().implicitlyWait(1, TimeUnit.MINUTES);
-            driver.manage().timeouts().pageLoadTimeout(1, TimeUnit.MINUTES);
-            driver.manage().timeouts().setScriptTimeout(1, TimeUnit.MINUTES);
+            webDriver = new RemoteWebDriver(new URL(Configurations.HUB_URL), chromeOptions);
+            webDriver.manage().timeouts().implicitlyWait(1, TimeUnit.MINUTES);
+            webDriver.manage().timeouts().pageLoadTimeout(1, TimeUnit.MINUTES);
+            webDriver.manage().timeouts().setScriptTimeout(1, TimeUnit.MINUTES);
 
-            wait = new WebDriverWait(driver, 10);
+            webDriverWait = new WebDriverWait(webDriver, 5);
 
-        } catch (MalformedURLException e) {
+            inboxPage = new InboxPage(webDriver, webDriverWait);
+            loginPage = new LoginPage(webDriver);
+            mailSenderPage = new MailSenderPage(webDriver, webDriverWait);
+
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        loginHelper = new LoginHelper(this, new LoginPage(driver));
-        inboxHelper = new InboxHelper(this, new InboxPage(driver, wait));
-        mailSenderHelper = new MailSenderHelper(this, new MailSenderPage(driver, wait));
-        navigationHelper = new NavigationHelper(this);
     }
 
-    public WebDriver getDriver() {
-        return driver;
+    public WebDriver getWebDriver() {
+        return webDriver;
+    }
+
+    public WebDriverWait getWebDriverWait() {
+        return webDriverWait;
+    }
+
+    public InboxPage getInboxPage() {
+        return inboxPage;
+    }
+
+    public LoginPage getLoginPage() {
+        return loginPage;
+    }
+
+    public MailSenderPage getMailSenderPage() {
+        return mailSenderPage;
     }
 
     public void stop() {
-        driver.quit();
-    }
-
-    public NavigationHelper getNavigationHelper() {
-        return navigationHelper;
-    }
-
-    public LoginHelper getLoginHelper() {
-        return loginHelper;
-    }
-
-    public InboxHelper getInboxHelper() {
-        return inboxHelper;
-    }
-
-    public MailSenderHelper getMailSenderHelper() {
-        return mailSenderHelper;
+        webDriver.quit();
     }
 
     public static ApplicationManager getInstance() {
-        if (app.get() == null) {
+        if (appManager.get() == null) {
             ApplicationManager newInstance = new ApplicationManager();
-            app.set(newInstance);
+            appManager.set(newInstance);
         }
-        return app.get();
+        return appManager.get();
     }
 }

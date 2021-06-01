@@ -4,5 +4,6 @@
 .idea/**
 .allure/**
 
-/target/*
-!/target/allure-report/
+/target/**
+
+allure-results/**
