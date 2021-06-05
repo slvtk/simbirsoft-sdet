@@ -27,13 +27,13 @@ public class ApplicationManager {
     private MailSenderPage mailSenderPage;
 
     private ApplicationManager() {
-        //Try with InputStreamReader for property file (with encoding)
+        //Try with InputStreamReader for property file(with encoding)
         try (InputStreamReader reader = new InputStreamReader(new FileInputStream("src/main/resources/config.properties"), StandardCharsets.UTF_8)) {
-            Properties properties = new Properties();
             //Initializing with properties from file
+            Properties properties = new Properties();
             properties.load(reader);
             Configurations.init(properties);
-            //WebDriver and WebDriverWait  setUp
+            //WebDriver and WebDriverWait setUp
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName(Configurations.BROWSER);
             capabilities.setPlatform(Platform.WINDOWS);
