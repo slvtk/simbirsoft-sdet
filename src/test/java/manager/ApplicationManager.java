@@ -20,10 +20,8 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
-
-    private WebDriver webDriver;
-    private WebDriverWait webDriverWait;
     private static final ThreadLocal<ApplicationManager> appManager = new ThreadLocal<>();
+    private WebDriver webDriver;
     private InboxPage inboxPage;
     private LoginPage loginPage;
     private MailSenderPage mailSenderPage;
@@ -40,7 +38,7 @@ public class ApplicationManager {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName(Configurations.BROWSER);
             capabilities.setPlatform(Platform.WINDOWS);
-
+            //Chrome driver setUp
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.merge(capabilities);
 
@@ -49,24 +47,14 @@ public class ApplicationManager {
             webDriver.manage().timeouts().pageLoadTimeout(1, TimeUnit.MINUTES);
             webDriver.manage().timeouts().setScriptTimeout(1, TimeUnit.MINUTES);
 
-            webDriverWait = new WebDriverWait(webDriver, 5);
+            WebDriverWait webDriverWait = new WebDriverWait(webDriver, 5);
 
             inboxPage = new InboxPage(webDriver, webDriverWait);
             loginPage = new LoginPage(webDriver);
             mailSenderPage = new MailSenderPage(webDriver, webDriverWait);
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public WebDriver getWebDriver() {
-        return webDriver;
-    }
-
-    public WebDriverWait getWebDriverWait() {
-        return webDriverWait;
     }
 
     public InboxPage getInboxPage() {

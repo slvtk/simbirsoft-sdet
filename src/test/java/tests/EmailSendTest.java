@@ -14,7 +14,6 @@ public class EmailSendTest extends TestBase {
     @Severity(SeverityLevel.TRIVIAL)
     @Description("Тест аутентификации, вычисление количества писем, включающих в subject слова: 'Simbirsoft Тестовое задание',а также отправка письма с результатами")
     public void testLogInAndCountingMatchingEmailsThenSendingEmail() {
-
         step("Аутентификация");
         appManager.getLoginPage()
                 .open()

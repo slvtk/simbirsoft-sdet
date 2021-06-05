@@ -3,7 +3,6 @@ package config;
 import java.util.Properties;
 
 public class Configurations {
-
     public static String LOGIN_PAGE_URL;
     public static String HUB_URL;
     public static String BROWSER;

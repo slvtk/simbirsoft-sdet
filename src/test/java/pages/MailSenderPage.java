@@ -10,15 +10,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MailSenderPage {
     private final WebDriverWait webDriverWait;
-    @FindBy(xpath = "//div[@class='T-I J-J5-Ji aoO v7 T-I-atl L3']")
+    @FindBy(className = "aoO")
     private WebElement emailSubmit;
-    @FindBy(xpath = "//div[@class='T-I T-I-KE L3']")
+    @FindBy(className = "z0")
     private WebElement newEmailButton;
     @FindBy(name = "to")
     private WebElement recipientEmailField;
     @FindBy(name = "subjectbox")
     private WebElement subjectEmailField;
-    @FindBy(xpath = "//div[@class='Am Al editable LW-avf tS-tW']")
+    @FindBy(className = "editable")
     private WebElement textEmailField;
     @FindBy(id = "link_vsm")
     private WebElement messageSentIndicator;
@@ -35,21 +35,20 @@ public class MailSenderPage {
     }
 
     public MailSenderPage fillRecipientField(String recipient) {
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(recipientEmailField)).click();
-        recipientEmailField.sendKeys(recipient + Keys.ENTER);
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(recipientEmailField))
+                .sendKeys(recipient + Keys.ENTER);
         return this;
     }
 
     public MailSenderPage fillSubjectField(String subject) {
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(subjectEmailField)).click();
-        subjectEmailField.sendKeys(subject);
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(subjectEmailField))
+                .sendKeys(subject);
         return this;
     }
 
     public MailSenderPage fillTextField(String text) {
-        textEmailField.click();
-        textEmailField.clear();
-        textEmailField.sendKeys(text);
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(textEmailField))
+                .sendKeys(text);
         return this;
     }
 

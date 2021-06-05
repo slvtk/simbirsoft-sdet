@@ -8,18 +8,18 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
-
-    private WebDriver webDriver;
+    private final WebDriver webDriver;
     @FindBy(name = "identifier")
     private WebElement emailField;
     @FindBy(name = "password")
     private WebElement passwordField;
 
     public LoginPage(WebDriver webDriver) {
+        this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
     }
 
-    public LoginPage open(){
+    public LoginPage open() {
         webDriver.get(Configurations.LOGIN_PAGE_URL);
         return this;
     }
@@ -33,5 +33,4 @@ public class LoginPage {
         passwordField.sendKeys(password + Keys.ENTER);
         return this;
     }
-
 }

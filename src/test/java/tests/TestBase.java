@@ -5,7 +5,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 public class TestBase {
-
     protected ApplicationManager appManager;
 
     @BeforeEach
@@ -14,8 +13,7 @@ public class TestBase {
     }
 
     @AfterEach
-    public void closeConnection(){
+    public void closeConnection() {
         appManager.stop();
     }
-
 }
