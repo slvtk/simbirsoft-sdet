@@ -12,7 +12,7 @@ public class InboxPage {
     private final WebDriverWait webDriverWait;
     @FindBy(className = "gb_ef")
     private WebElement searchAreaField;
-    @FindBy(xpath = "(//*[@class='ts'])[6]")
+    @FindBy(xpath = "(//*[@class='D E G-atb PY']//*[@class='ts'])[3]")
     private WebElement matchingMessagesCounter;
 
     public InboxPage(WebDriver webDriver,

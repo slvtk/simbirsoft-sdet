@@ -30,23 +30,19 @@ public class ApplicationManager {
         //Try with InputStreamReader for property file (with encoding)
         try (InputStreamReader reader = new InputStreamReader(new FileInputStream("src/main/resources/config.properties"), StandardCharsets.UTF_8)) {
             Properties properties = new Properties();
-            //Loading properties from file
+            //Initializing with properties from file
             properties.load(reader);
-            //Initialize Configurations
             Configurations.init(properties);
-            //Driver setUp
+            //WebDriver and WebDriverWait  setUp
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName(Configurations.BROWSER);
             capabilities.setPlatform(Platform.WINDOWS);
-            //Chrome driver setUp
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.merge(capabilities);
-
             webDriver = new RemoteWebDriver(new URL(Configurations.HUB_URL), chromeOptions);
-            webDriver.manage().timeouts().implicitlyWait(1, TimeUnit.MINUTES);
-            webDriver.manage().timeouts().pageLoadTimeout(1, TimeUnit.MINUTES);
-            webDriver.manage().timeouts().setScriptTimeout(1, TimeUnit.MINUTES);
-
+            webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            webDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+            webDriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
             WebDriverWait webDriverWait = new WebDriverWait(webDriver, 5);
 
             inboxPage = new InboxPage(webDriver, webDriverWait);

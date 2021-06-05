@@ -52,18 +52,9 @@ public class MailSenderPage {
         return this;
     }
 
-    public MailSenderPage submitEmail() {
+    public MailSenderPage sendEmail() {
         emailSubmit.click();
         webDriverWait.until(ExpectedConditions.elementToBeClickable(messageSentIndicator));
         return this;
-    }
-
-    public MailSenderPage sendEmail(String recipient,
-                                    String subject,
-                                    String text) {
-        return fillRecipientField(recipient)
-                .fillSubjectField(subject)
-                .fillTextField(text)
-                .submitEmail();
     }
 }

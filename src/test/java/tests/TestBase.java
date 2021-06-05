@@ -4,8 +4,8 @@ import manager.ApplicationManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-public class TestBase {
-    protected ApplicationManager appManager;
+class TestBase {
+    ApplicationManager appManager;
 
     @BeforeEach
     public void setApplicationManager() {

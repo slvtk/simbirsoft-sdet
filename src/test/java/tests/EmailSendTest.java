@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import static io.qameta.allure.Allure.step;
 
-public class EmailSendTest extends TestBase {
+class EmailSendTest extends TestBase {
 
     @Test
     @Severity(SeverityLevel.TRIVIAL)
     @Description("Тест аутентификации, вычисление количества писем, включающих в subject слова: 'Simbirsoft Тестовое задание',а также отправка письма с результатами")
-    public void testLogInAndCountingMatchingEmailsThenSendingEmail() {
+    void testLogInAndCountingMatchingEmailsThenSendingEmail() {
         step("Аутентификация");
         appManager.getLoginPage()
                 .open()
@@ -28,6 +28,9 @@ public class EmailSendTest extends TestBase {
         step("Формирование и отправка количества подходящих писем");
         appManager.getMailSenderPage()
                 .newEmailForm()
-                .sendEmail(Configurations.EMAIL, Configurations.SUBJECT, matchingMessages);
+                .fillRecipientField(Configurations.EMAIL)
+                .fillSubjectField(Configurations.SUBJECT)
+                .fillTextField(matchingMessages)
+                .sendEmail();
     }
 }
