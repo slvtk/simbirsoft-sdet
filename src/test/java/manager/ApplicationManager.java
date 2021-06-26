@@ -1,6 +1,7 @@
 package manager;
 
 import config.Configurations;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -34,19 +35,21 @@ public class ApplicationManager {
             properties.load(reader);
             Configurations.init(properties);
             //WebDriver and WebDriverWait setUp
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setBrowserName(Configurations.BROWSER);
-            capabilities.setPlatform(Platform.WINDOWS);
-            ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.merge(capabilities);
-            webDriver = new RemoteWebDriver(new URL(Configurations.HUB_URL), chromeOptions);
+            DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+            desiredCapabilities.setBrowserName(Configurations.BROWSER);
+            desiredCapabilities.setPlatform(Platform.LINUX);
+            //We can switch our browsers + in config.properties
+            Capabilities capabilities = new ChromeOptions();
+            capabilities.merge(desiredCapabilities);
+            webDriver = new RemoteWebDriver(new URL(Configurations.HUB_URL), capabilities);
+            webDriver.manage().window().maximize();
             webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
             webDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
             webDriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
             WebDriverWait webDriverWait = new WebDriverWait(webDriver, 5);
 
             inboxPage = new InboxPage(webDriver, webDriverWait);
-            loginPage = new LoginPage(webDriver);
+            loginPage = new LoginPage(webDriver, webDriverWait);
             mailSenderPage = new MailSenderPage(webDriver, webDriverWait);
         } catch (IOException e) {
             e.printStackTrace();
